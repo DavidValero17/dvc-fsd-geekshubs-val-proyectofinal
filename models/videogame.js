@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         through: "Favorites",
         foreignKey: "videogame_id",
       });
+      Videogame.belongsToMany(models.Platform, {
+        through: "VideogamePlatforms",
+        foreignKey: "videogame_id",
+      });
     }
   }
   Videogame.init(

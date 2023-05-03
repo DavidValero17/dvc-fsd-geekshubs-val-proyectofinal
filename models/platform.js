@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Platform.belongsToMany(models.Videogame, {
+        through: "VideogamePlatform",
+        foreignKey: "platform_id",
+      });
     }
   }
   Platform.init({
