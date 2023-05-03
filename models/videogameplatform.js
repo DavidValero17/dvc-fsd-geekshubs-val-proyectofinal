@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   VideogamePlatform.init({
-    game_id: DataTypes.INTEGER,
+    videogame_id: DataTypes.INTEGER,
     platform_id: DataTypes.INTEGER
   }, {
     sequelize,

@@ -2,6 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Developers', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      name: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      year: {
+        type: Sequelize.INTEGER
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
     await queryInterface.createTable('Videogames', {
       id: {
         allowNull: false,
@@ -31,7 +56,11 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       developer_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Developers",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,
@@ -45,5 +74,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Videogames');
+    await queryInterface.dropTable('Developers');
   }
 };

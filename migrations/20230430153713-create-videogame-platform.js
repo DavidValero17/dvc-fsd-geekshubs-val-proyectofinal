@@ -9,11 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      game_id: {
-        type: Sequelize.INTEGER
+      videogame_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model:"Videogames",
+          key: "id"
+        }
       },
       platform_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model:"Platforms",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,
