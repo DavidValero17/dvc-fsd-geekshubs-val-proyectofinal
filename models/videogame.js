@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Videogame.belongsToMany(models.Favorite, {
+        through: 'Favorites',
+        foreignKey: 'videogame_id'
+      });
     }
   }
   Videogame.init({
