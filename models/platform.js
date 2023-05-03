@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Platform.belongsToMany(models.Videogame, {
-        through: "VideogamePlatform",
+        through: "VideogamePlatforms",
         foreignKey: "platform_id",
       });
     }

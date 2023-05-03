@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "favorites",
       });
+      User.belongsToMany(models.Videogame, {
+        through: "Favorites",
+        foreignKey: "user_id"
+      });
     }
   }
   User.init(
