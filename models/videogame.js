@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Videogame extends Model {
     /**
@@ -11,24 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Videogame.belongsTo(models.Developer, {
+        foreignKey: "developer_id",
+      });
       Videogame.belongsToMany(models.Favorite, {
-        through: 'Favorites',
-        foreignKey: 'videogame_id'
+        through: "Favorites",
+        foreignKey: "videogame_id",
       });
     }
   }
-  Videogame.init({
-    title: DataTypes.STRING,
-    image: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    genre: DataTypes.STRING,
-    year: DataTypes.INTEGER,
-    multiplayer: DataTypes.BOOLEAN,
-    online: DataTypes.BOOLEAN,
-    developer_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Videogame',
-  });
+  Videogame.init(
+    {
+      title: DataTypes.STRING,
+      image: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      genre: DataTypes.STRING,
+      year: DataTypes.INTEGER,
+      multiplayer: DataTypes.BOOLEAN,
+      online: DataTypes.BOOLEAN,
+      developer_id: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Videogame",
+    }
+  );
   return Videogame;
 };
