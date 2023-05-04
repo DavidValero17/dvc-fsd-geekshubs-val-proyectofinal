@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require("cors");
 const db = require("./db");
 const app = express();
-// const router = require('./router');
+const router = require('./router');
 //Importo el método de conexion a la base de datos
 
 app.use(cors());
@@ -17,7 +17,7 @@ let corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-// app.use(router)
+app.use(router)
 
 
 
