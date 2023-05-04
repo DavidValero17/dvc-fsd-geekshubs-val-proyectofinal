@@ -12,8 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       Videogame.belongsTo(models.Developer, {
         foreignKey: "developer_id",
       });
+      Videogame.belongsToMany(models.User, {
+        through: "Favorites",
+        foreignKey: "videogame_id",
+        otherKey: "user_id",
+      });
       Videogame.hasMany(models.Favorite, {
-        foreignKey: 'videogame_id'
+        foreignKey: "videogame_id",
       });
       Videogame.belongsToMany(models.Platform, {
         through: "VideogamePlatforms",

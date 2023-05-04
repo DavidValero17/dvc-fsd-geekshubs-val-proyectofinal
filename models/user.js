@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.belongsToMany(models.Videogame, {
         through: "Favorites",
-        foreignKey: "user_id"
+        foreignKey: "user_id",
+        otherKey: "videogame_id",
       });
     }
   }
@@ -24,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      role_id: DataTypes.INTEGER
+      role_id: DataTypes.INTEGER,
     },
     {
       sequelize,
