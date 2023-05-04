@@ -7,5 +7,7 @@ const router = require('express').Router();
 
 
 router.get('/profile/getallusers', verifyToken, isAdmin, userController.getAllUsers);
+router.post('/addvideogame', verifyToken, isAdmin, userController.addVideogame);
+
 
 module.exports = router;

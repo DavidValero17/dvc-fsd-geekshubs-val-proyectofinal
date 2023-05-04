@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Videogame } = require("../models");
 
 const userController = {};
 
@@ -20,5 +20,40 @@ userController.getAllUsers = async (req, res) => {
         });
     }
 };
+
+userController.addVideogame = async (req, res) => {
+    try {
+        const { title, image, description, genre, year, multiplayer, online, developer_id } = req.body;
+        const newVideogame = await Videogame.create(
+            {
+                title: title,
+                image: image,
+                description: description,
+                genre: genre,
+                year: year,
+                multiplayer: multiplayer,
+                online: online,
+                developer_id: developer_id
+            }
+        )
+
+        return res.json(
+            {
+                success: true,
+                message: "Videogame added",
+                data: newVideogame
+            }
+        );
+    } catch (error) {
+
+        return res.status(500).json(
+            {
+                success: false,
+                message: "something went wrong",
+                error: error.message
+            }
+        );
+    }
+}
 
 module.exports = userController;
