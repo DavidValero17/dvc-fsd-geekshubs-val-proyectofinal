@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Favorite, {
         foreignKey: "user_id",
+        sourceKey: 'id',
         as: "favorites",
       });
       User.belongsToMany(models.Videogame, {

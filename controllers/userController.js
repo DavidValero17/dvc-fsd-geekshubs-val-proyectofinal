@@ -1,6 +1,34 @@
-const { User, Videogame } = require("../models");
+const { User, Videogame, Favorite } = require("../models");
+// const jwt = require('jsonwebtoken');
+
 
 const userController = {};
+
+userController.getProfile = async (req, res) => {
+    try {
+        const user_id = req.user_id;
+        const user = await User.findByPk(user_id,
+            {
+                attributes: { exclude: ["password", "role_id"] }
+            }
+        )
+        return res.json(
+            {
+                success: true,
+                message: "Here is the profile",
+                data: user
+            }
+        );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "something went wrong",
+                error: error.message
+            }
+        );
+    }
+}
 
 userController.getAllUsers = async (req, res) => {
     try {
@@ -96,4 +124,17 @@ userController.updateVideogame = async (req, res) => {
     }
 }
 
-module.exports = userController;
+userController.addToFavorite = async (req, res) => {
+    try {
+      
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: false,
+        message: 'Something went wrong',
+        error: error.message,
+      });
+    }
+  };
+  
+  module.exports = userController;
