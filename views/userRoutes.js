@@ -8,7 +8,13 @@ const router = require('express').Router();
 
 router.get('/getprofile', verifyToken, userController.getProfile);
 router.get('/profile/getallusers', verifyToken, isAdmin, userController.getAllUsers);
-router.get('/getallvideogames', verifyToken, isAdmin, userController.getAllVideogame);
+router.get('/getallvideogames', verifyToken, userController.getAllVideogame);
+router.get('/getbygenre', verifyToken, userController.getAllVideogameByGenre);
+router.get('/getbytitle', verifyToken, userController.getAllVideogameByTitle);
+router.get('/getbyyear', verifyToken, userController.getAllVideogameByYear);
+router.get('/getbymultiplayer', verifyToken, userController.getAllVideogameByMultiplayer);
+router.get('/getbyonline', verifyToken, userController.getAllVideogameByOnline);
+router.get('/getbydeveloper', verifyToken, userController.getAllVideogameByDeveloper);
 router.post('/addvideogame', verifyToken, isAdmin, userController.addVideogame);
 router.put('/updatevideogame/:id', verifyToken, isAdmin, userController.updateVideogame);
 router.post('/addtofavorite', userController.addToFavorite);
