@@ -1,5 +1,5 @@
 const userController = require('../controllers/userController');
-// const isUser = require('../middleware/isUser');
+const isUser = require('../middleware/isUser');
 const verifyToken = require('../middleware/verifyToken');
 const isAdmin = require('../middleware/isAdmin');
 
@@ -16,8 +16,8 @@ router.get('/getbymultiplayer', verifyToken, userController.getAllVideogameByMul
 router.get('/getbyonline', verifyToken, userController.getAllVideogameByOnline);
 router.get('/getbydeveloper', verifyToken, userController.getAllVideogameByDeveloper);
 router.post('/addvideogame', verifyToken, isAdmin, userController.addVideogame);
+router.post('/addtofavorite', verifyToken, isUser, userController.addFavorite);
 router.put('/updatevideogame/:id', verifyToken, isAdmin, userController.updateVideogame);
-router.post('/addtofavorite', userController.addToFavorite);
 
 
 

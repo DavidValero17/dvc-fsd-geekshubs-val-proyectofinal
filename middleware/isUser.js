@@ -3,7 +3,7 @@ const { User } = require("../models");
 const isUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
-      where: { user_id: req.user_id },
+      where: { id: req.user_id },
     });
 
     if (!user) {

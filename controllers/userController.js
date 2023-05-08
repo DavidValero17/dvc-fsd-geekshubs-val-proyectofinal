@@ -1,5 +1,5 @@
 const { User, Videogame, Favorite, Developer } = require("../models");
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const userController = {};
 
@@ -272,16 +272,109 @@ userController.updateVideogame = async (req, res) => {
   }
 };
 
-userController.addToFavorite = async (req, res) => {
-  try {
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
+// La que funciona ok pero solo por body
+// userController.addFavorite = async (req, res) => {
+//     try {
+//         const { user_id, videogame_id } = req.body;
+    
+//         // Verificar si el usuario ya tiene el videojuego en favoritos
+//         const favoriteExists = await Favorite.findOne({
+//           where: {
+//             user_id,
+//             videogame_id,
+//           },
+//         });
+    
+//         if (favoriteExists) {
+//           return res.status(409).json({
+//             success: false,
+//             message: "The videogame is already in favorites",
+//           });
+//         }
+    
+//         // Verificar si el videojuego existe en la base de datos
+//         const videogame = await Videogame.findByPk(videogame_id);
+//         if (!videogame) {
+//           return res.status(404).json({
+//             success: false,
+//             message: "The videogame does not exist",
+//           });
+//         }
+    
+//         // Crear el registro de favorito
+//         const newFavorite = await Favorite.create({
+//           user_id,
+//           videogame_id,
+//         });
+    
+//         return res.json({
+//           success: true,
+//           message: "Videogame added to favorites",
+//           data: newFavorite,
+//         });
+//       } catch (error) {
+//         return res.status(500).json({
+//           success: false,
+//           message: "Something went wrong",
+//           error: error.message,
+//         });
+//       }
+//     };
+
+userController.addFavorite = async (req, res) => {
+    try {
+      const { videogame_id } = req.body;
+      const user_id = req.user_id;
+  
+      if (!user_id) {
+        return res.status(400).json({
+          success: false,
+          message: "User ID is missing",
+        });
+      }
+  
+      // Verificar si el usuario ya tiene el videojuego en favoritos
+      const favoriteExists = await Favorite.findOne({
+        where: {
+          user_id,
+          videogame_id,
+        },
+      });
+  
+      if (favoriteExists) {
+        return res.status(409).json({
+          success: false,
+          message: "The videogame is already in favorites",
+        });
+      }
+  
+      // Verificar si el videojuego existe en la base de datos
+      const videogame = await Videogame.findByPk(videogame_id);
+      if (!videogame) {
+        return res.status(404).json({
+          success: false,
+          message: "The videogame does not exist",
+        });
+      }
+  
+      // Crear el registro de favorito
+      const newFavorite = await Favorite.create({
+        user_id,
+        videogame_id,
+      });
+  
+      return res.json({
+        success: true,
+        message: "Videogame added to favorites",
+        data: newFavorite,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Something went wrong",
+        error: error.message,
+      });
+    }
+  };
 
 module.exports = userController;

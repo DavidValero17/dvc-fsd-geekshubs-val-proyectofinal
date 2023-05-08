@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "Favorites",
         foreignKey: "user_id",
         otherKey: "videogame_id",
+        unique: true, 
       });
     }
   }
