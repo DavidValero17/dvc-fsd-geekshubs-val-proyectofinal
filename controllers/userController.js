@@ -49,6 +49,25 @@ userController.getAllUsers = async (req, res) => {
     }
 };
 
+userController.getAllVideogame = async (req, res) => {
+    try {
+        const allVideogame = await Videogame.findAll({
+            attributes: { exclude: ["developer_id"] }
+        });
+        return res.json({
+            success: true,
+            message: "Here are all the videogames",
+            data: allVideogame
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            error: error.message
+        });
+    }
+};
+
 userController.addVideogame = async (req, res) => {
     try {
         const { title, image, description, genre, year, multiplayer, online, developer_id } = req.body;
