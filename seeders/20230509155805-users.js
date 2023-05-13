@@ -9,7 +9,7 @@ module.exports = {
         {
           username: "david",
           email: "david@david.com",
-          password: "admin",
+          password:bcrypt.hashSync("admin", 10),
           role_id: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -17,7 +17,7 @@ module.exports = {
         {
           username: "juan",
           email: "juan@juan.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -25,7 +25,7 @@ module.exports = {
         {
           username: "ana",
           email: "ana@ana.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -33,7 +33,7 @@ module.exports = {
         {
           username: "luis",
           email: "luis@luis.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -41,7 +41,7 @@ module.exports = {
         {
           username: "carla",
           email: "carla@carla.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -49,7 +49,7 @@ module.exports = {
         {
           username: "pablo",
           email: "pablo@pablo.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -57,7 +57,7 @@ module.exports = {
         {
           username: "lucia",
           email: "lucia@lucia.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -65,7 +65,7 @@ module.exports = {
         {
           username: "maria",
           email: "maria@maria.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -73,7 +73,7 @@ module.exports = {
         {
           username: "rosa",
           email: "rosa@rosa.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -81,7 +81,7 @@ module.exports = {
         {
           username: "oscar",
           email: "oscar@oscar.com",
-          password: "user",
+          password:bcrypt.hashSync("user", 10),
           role_id: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
