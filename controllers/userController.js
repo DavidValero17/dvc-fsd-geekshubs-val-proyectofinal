@@ -234,19 +234,10 @@ userController.addVideogame = async (req, res) => {
 
 userController.updateVideogame = async (req, res) => {
   try {
-    const videogame_id = req.body.videogame_id;
-    const title = req.body.title;
-    const image = req.body.image;
-    const description = req.body.description;
-    const genre = req.body.genre;
-    const year = req.body.year;
-    const multiplayer = req.body.multiplayer;
-    const online = req.body.online;
-    const developer_id = req.body.developer_id;
+    const { videogame_id, title, image, description, genre, year, multiplayer, online, developer_id } = req.body;
 
     const updateVideogame = await Videogame.update(
       {
-        videogame_id: videogame_id,
         title: title,
         image: image,
         description: description,
@@ -267,7 +258,7 @@ userController.updateVideogame = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "something went wrong",
+      message: "Something went wrong",
       error: error.message,
     });
   }
