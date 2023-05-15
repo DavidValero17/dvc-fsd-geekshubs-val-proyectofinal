@@ -234,7 +234,7 @@ userController.addVideogame = async (req, res) => {
 
 userController.updateVideogame = async (req, res) => {
   try {
-    const videogame_id = req.params.id;
+    const videogame_id = req.body.videogame_id;
     const title = req.body.title;
     const image = req.body.image;
     const description = req.body.description;
@@ -246,6 +246,7 @@ userController.updateVideogame = async (req, res) => {
 
     const updateVideogame = await Videogame.update(
       {
+        videogame_id: videogame_id,
         title: title,
         image: image,
         description: description,
