@@ -1,3 +1,5 @@
+const {Op} = require('sequelize')
+
 const { User, Videogame, Favorite, Developer } = require("../models");
 const jwt = require('jsonwebtoken');
 
@@ -44,37 +46,37 @@ userController.getAllUsers = async (req, res) => {
 
 userController.getAllVideogame = async (req, res) => {
   try {
-    let filters = {};
-
+    let options = {where:{}}
     const { genre, title, year, multiplayer, online, developer } = req.query;
 
+
     if (genre) {
-      filters.genre = genre;
+      options.where.genre = genre;
     }
 
     if (title) {
-      filters.title = title;
+      options.where.title = {[Op.like]:`%${title}%`};
     }
 
     if (year) {
-      filters.year = year;
+      options.where.year = year;
     }
 
     if (multiplayer) {
-      filters.multiplayer = multiplayer === 'true';
+      options.where.multiplayer = multiplayer === 'true';
     }
 
     if (online) {
-      filters.online = online === 'true';
+      options.where.online = online === 'true';
     }
 
     if (developer) {
-      filters.developer = developer;
+      options.where.developer = developer;
     }
 
     const allVideogame = await Videogame.findAll({
       attributes: { exclude: ["developer_id"] },
-      where: filters,
+      where:options.where,
     });
 
     return res.json({
