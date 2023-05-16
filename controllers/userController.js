@@ -44,12 +44,42 @@ userController.getAllUsers = async (req, res) => {
 
 userController.getAllVideogame = async (req, res) => {
   try {
+    let filters = {};
+
+    const { genre, title, year, multiplayer, online, developer } = req.query;
+
+    if (genre) {
+      filters.genre = genre;
+    }
+
+    if (title) {
+      filters.title = title;
+    }
+
+    if (year) {
+      filters.year = year;
+    }
+
+    if (multiplayer) {
+      filters.multiplayer = multiplayer === 'true';
+    }
+
+    if (online) {
+      filters.online = online === 'true';
+    }
+
+    if (developer) {
+      filters.developer = developer;
+    }
+
     const allVideogame = await Videogame.findAll({
       attributes: { exclude: ["developer_id"] },
+      where: filters,
     });
+
     return res.json({
       success: true,
-      message: "Here are all the videogames",
+      message: "Here are the filtered videogames",
       data: allVideogame,
     });
   } catch (error) {
@@ -60,140 +90,6 @@ userController.getAllVideogame = async (req, res) => {
     });
   }
 };
-
-userController.getAllVideogameByGenre = async (req, res) => {
-  try {
-    const { genre } = req.body;
-    const allVideogameByGenre = await Videogame.findAll({
-      where: { genre: genre },
-      attributes: { exclude: ["developer_id"] },
-    });
-    return res.json({
-      success: true,
-      message: `Here are all the videogames with genre ${genre}`,
-      data: allVideogameByGenre,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-
-userController.getAllVideogameByTitle = async (req, res) => {
-  try {
-    const { title } = req.body;
-    const allVideogameByTitle = await Videogame.findAll({
-      where: { title: title },
-      attributes: { exclude: ["developer_id"] },
-    });
-    return res.json({
-      success: true,
-      message: `Here are all the videogames with genre ${title}`,
-      data: allVideogameByTitle,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-
-userController.getAllVideogameByYear = async (req, res) => {
-  try {
-    const { year } = req.body;
-    const allVideogameByYear = await Videogame.findAll({
-      where: { year: year },
-      attributes: { exclude: ["developer_id"] },
-    });
-    return res.json({
-      success: true,
-      message: `Here are all the videogames with genre ${year}`,
-      data: allVideogameByYear,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-
-userController.getAllVideogameByMultiplayer = async (req, res) => {
-  try {
-    const { multiplayer } = req.body;
-    const allVideogameByMultiplayer = await Videogame.findAll({
-      where: { multiplayer: multiplayer },
-      attributes: { exclude: ["developer_id"] },
-    });
-    return res.json({
-      success: true,
-      message: `Here are all the videogames with genre ${multiplayer}`,
-      data: allVideogameByMultiplayer,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-
-userController.getAllVideogameByOnline = async (req, res) => {
-  try {
-    const { online } = req.body;
-    const allVideogameByOnline = await Videogame.findAll({
-      where: { online: online },
-      attributes: { exclude: ["developer_id"] },
-    });
-    return res.json({
-      success: true,
-      message: `Here are all the videogames with genre ${online}`,
-      data: allVideogameByOnline,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error: error.message,
-    });
-  }
-};
-
-userController.getAllVideogameByDeveloper = async (req, res) => {
-    try {
-      const { developerName } = req.body;
-  
-      const allVideogameByDeveloper = await Videogame.findAll({
-        where: {},
-        include: [
-          {
-            model: Developer,
-            where: { name: developerName }
-          }
-        ],
-        attributes: { exclude: ["developer_id"] }
-      });
-  
-      return res.json({
-        success: true,
-        message: `Here are all the videogames by developer ${developerName}`,
-        data: allVideogameByDeveloper
-      });
-    } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: "Something went wrong",
-        error: error.message
-      });
-    }
-  };
 
 userController.addVideogame = async (req, res) => {
   try {
