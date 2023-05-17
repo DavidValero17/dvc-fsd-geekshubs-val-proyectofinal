@@ -51,7 +51,7 @@ userController.getAllVideogame = async (req, res) => {
 
 
     if (genre) {
-      options.where.genre = genre;
+      options.where.genre = {[Op.like]:`%${genre}%`};
     }
 
     if (title) {
@@ -59,7 +59,7 @@ userController.getAllVideogame = async (req, res) => {
     }
 
     if (year) {
-      options.where.year = year;
+      options.where.year = {[Op.like]:`%${year}%`};
     }
 
     if (multiplayer) {
