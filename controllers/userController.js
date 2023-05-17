@@ -1,7 +1,7 @@
-const {Op} = require('sequelize')
+const { Op } = require("sequelize");
 
 const { User, Videogame, Favorite } = require("../models");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const userController = {};
 
@@ -71,28 +71,27 @@ userController.updateUser = async (req, res) => {
 
 userController.getAllVideogame = async (req, res) => {
   try {
-    let options = {where:{}}
+    let options = { where: {} };
     const { genre, title, year, multiplayer, online, developer } = req.query;
 
-
     if (genre) {
-      options.where.genre = {[Op.like]:`%${genre}%`};
+      options.where.genre = { [Op.like]: `%${genre}%` };
     }
 
     if (title) {
-      options.where.title = {[Op.like]:`%${title}%`};
+      options.where.title = { [Op.like]: `%${title}%` };
     }
 
     if (year) {
-      options.where.year = {[Op.like]:`%${year}%`};
+      options.where.year = { [Op.like]: `%${year}%` };
     }
 
     if (multiplayer) {
-      options.where.multiplayer = multiplayer === 'true';
+      options.where.multiplayer = multiplayer === "true";
     }
 
     if (online) {
-      options.where.online = online === 'true';
+      options.where.online = online === "true";
     }
 
     if (developer) {
@@ -101,7 +100,7 @@ userController.getAllVideogame = async (req, res) => {
 
     const allVideogame = await Videogame.findAll({
       attributes: { exclude: ["developer_id"] },
-      where:options.where,
+      where: options.where,
     });
 
     return res.json({
@@ -113,6 +112,27 @@ userController.getAllVideogame = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
+userController.getVideogameById = async (req, res) => {
+  try {
+    const videogame_id = req.params.id;
+    const videogameById = await Videogame.findByPk(videogame_id, {
+      where: { id: videogame_id },
+    });
+
+    return res.json({
+      success: true,
+      message: "Here is your videogame",
+      data: videogameById,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "something went wrong",
       error: error.message,
     });
   }
@@ -157,7 +177,17 @@ userController.addVideogame = async (req, res) => {
 
 userController.updateVideogame = async (req, res) => {
   try {
-    const { videogame_id, title, image, description, genre, year, multiplayer, online, developer_id } = req.body;
+    const {
+      videogame_id,
+      title,
+      image,
+      description,
+      genre,
+      year,
+      multiplayer,
+      online,
+      developer_id,
+    } = req.body;
 
     const updateVideogame = await Videogame.update(
       {
@@ -188,59 +218,56 @@ userController.updateVideogame = async (req, res) => {
 };
 
 userController.addFavorite = async (req, res) => {
-    try {
-      const { videogame_id } = req.body;
-      const user_id = req.user_id;
-  
-      if (!user_id) {
-        return res.status(400).json({
-          success: false,
-          message: "User ID is missing",
-        });
-      }
-  
-      // Verificar si el usuario ya tiene el videojuego en favoritos
-      const favoriteExists = await Favorite.findOne({
-        where: {
-          user_id,
-          videogame_id,
-        },
-      });
-  
-      if (favoriteExists) {
-        return res.status(409).json({
-          success: false,
-          message: "The videogame is already in favorites",
-        });
-      }
-  
-      // Verificar si el videojuego existe en la base de datos
-      const videogame = await Videogame.findByPk(videogame_id);
-      if (!videogame) {
-        return res.status(404).json({
-          success: false,
-          message: "The videogame does not exist",
-        });
-      }
-  
-      // Crear el registro de favorito
-      const newFavorite = await Favorite.create({
-        user_id,
-        videogame_id,
-      });
-  
-      return res.json({
-        success: true,
-        message: "Videogame added to favorites",
-        data: newFavorite,
-      });
-    } catch (error) {
-      return res.status(500).json({
+  try {
+    const { videogame_id } = req.body;
+    const user_id = req.user_id;
+
+    if (!user_id) {
+      return res.status(400).json({
         success: false,
-        message: "Something went wrong",
-        error: error.message,
+        message: "User ID is missing",
       });
     }
-  };
+
+    const favoriteExists = await Favorite.findOne({
+      where: {
+        user_id,
+        videogame_id,
+      },
+    });
+
+    if (favoriteExists) {
+      return res.status(409).json({
+        success: false,
+        message: "The videogame is already in favorites",
+      });
+    }
+
+    const videogame = await Videogame.findByPk(videogame_id);
+    if (!videogame) {
+      return res.status(404).json({
+        success: false,
+        message: "The videogame does not exist",
+      });
+    }
+
+    const newFavorite = await Favorite.create({
+      user_id,
+      videogame_id,
+    });
+
+    return res.json({
+      success: true,
+      message: "Videogame added to favorites",
+      data: newFavorite,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
 
 module.exports = userController;

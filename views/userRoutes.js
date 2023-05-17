@@ -10,6 +10,7 @@ router.get('/getprofile', verifyToken, userController.getProfile);
 router.put('/getprofile', verifyToken, isUser, userController.updateUser);
 router.get('/profile/getallusers', verifyToken, isAdmin, userController.getAllUsers);
 router.get('/getallvideogames', verifyToken, userController.getAllVideogame);
+router.get('/getvideogamebyid/:id', verifyToken, userController.getVideogameById);
 router.post('/addvideogame', verifyToken, isAdmin, userController.addVideogame);
 router.post('/addtofavorite', verifyToken, isUser, userController.addFavorite);
 router.put('/updatevideogame/', verifyToken, isAdmin, userController.updateVideogame);
