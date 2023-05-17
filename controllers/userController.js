@@ -1,6 +1,6 @@
 const {Op} = require('sequelize')
 
-const { User, Videogame, Favorite, Developer } = require("../models");
+const { User, Videogame, Favorite } = require("../models");
 const jwt = require('jsonwebtoken');
 
 const userController = {};
@@ -34,6 +34,31 @@ userController.getAllUsers = async (req, res) => {
       success: true,
       message: "Here are all the users",
       data: allUsers,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
+userController.updateUser = async (req, res) => {
+  try {
+    const { user_id, username } = req.body;
+
+    const updateUser = await User.update(
+      {
+        username: username,
+      },
+      { where: { id: user_id } }
+    );
+
+    return res.json({
+      success: true,
+      message: "User updated",
+      data: updateUser,
     });
   } catch (error) {
     return res.status(500).json({
