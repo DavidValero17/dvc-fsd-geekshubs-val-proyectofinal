@@ -10,7 +10,18 @@ userController.getProfile = async (req, res) => {
     const user_id = req.user_id;
     const user = await User.findByPk(user_id, {
       attributes: { exclude: ["password", "role_id"] },
+      include: [
+        {
+          model: Favorite,
+          as: "favorites",
+          include: {
+            model: Videogame,
+            attributes: ["title", "image", "description", "genre", "year"],
+          },
+        },
+      ],
     });
+
     return res.json({
       success: true,
       message: "Here is the profile",
@@ -19,7 +30,7 @@ userController.getProfile = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "something went wrong",
+      message: "Something went wrong",
       error: error.message,
     });
   }
