@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class VideogamePlatform extends Model {
     /**
@@ -19,12 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  VideogamePlatform.init({
-    videogame_id: DataTypes.INTEGER,
-    platform_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'VideogamePlatform',
-  });
+  VideogamePlatform.init(
+    {
+      videogame_id: DataTypes.INTEGER,
+      platform_id: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "VideogamePlatform",
+    }
+  );
   return VideogamePlatform;
 };

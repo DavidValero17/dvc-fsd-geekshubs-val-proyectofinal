@@ -194,7 +194,8 @@ module.exports = {
         },
         {
           title: "BioShock Infinite",
-          image: "https://image.api.playstation.com/vulcan/img/cfn/11307sTZ0IfHm2mu2m-Bv67cCZdanpm3BrdhlSEdrfCM_Lk4_LU8iLKiFXzeca0FX_xWI8YQTxGjcbyQjPENYMTj7gE6a0kt.png",
+          image:
+            "https://image.api.playstation.com/vulcan/img/cfn/11307sTZ0IfHm2mu2m-Bv67cCZdanpm3BrdhlSEdrfCM_Lk4_LU8iLKiFXzeca0FX_xWI8YQTxGjcbyQjPENYMTj7gE6a0kt.png",
           description:
             "BioShock Infinite is a first-person shooter video game developed by Irrational Games and published by 2K Games. It was released worldwide for the Microsoft Windows, PlayStation 3, Xbox 360, and OS X platforms in 2013, and a Linux port was released in 2015.",
           genre: "FPS",
@@ -207,7 +208,8 @@ module.exports = {
         },
         {
           title: "Final Fantasy VII",
-          image: "https://media.vandal.net/m/1436/final-fantasy-vii-20161062139_1.jpg",
+          image:
+            "https://media.vandal.net/m/1436/final-fantasy-vii-20161062139_1.jpg",
           description:
             "Final Fantasy VII is a role-playing video game developed by Square Enix. It is the seventh main installment in the Final Fantasy series. Set in the dystopian cyberpunk metropolis of Midgar, players control mercenary Cloud Strife as he and an eco-terrorist group known as AVALANCHE oppose a megacorporation called Shinra from using the planet's life essence as an energy source. The gameplay features exploration, puzzle-solving, and turn-based battle elements.",
           genre: "RPG",

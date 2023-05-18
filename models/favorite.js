@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "user",
       });
       Favorite.belongsTo(models.Videogame, {
-        foreignKey: 'videogame_id'
+        foreignKey: "videogame_id",
       });
     }
   }

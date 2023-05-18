@@ -16,7 +16,6 @@ const isUser = async (req, res, next) => {
     req.user_id = user.id;
 
     next();
-
   } catch (error) {
     return res.status(500).json({
       success: false,

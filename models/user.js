@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Favorite, {
         foreignKey: "user_id",
-        sourceKey: 'id',
+        sourceKey: "id",
         as: "favorites",
       });
       User.belongsToMany(models.Videogame, {
         through: "Favorites",
         foreignKey: "user_id",
         otherKey: "videogame_id",
-        unique: true, 
+        unique: true,
       });
     }
   }
