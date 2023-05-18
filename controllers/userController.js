@@ -281,4 +281,45 @@ userController.addFavorite = async (req, res) => {
   }
 };
 
+userController.deleteFavorite = async (req, res) => {
+  try {
+    const { videogame_id } = req.body;
+    const user_id = req.user_id;
+
+    if (!user_id) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is missing",
+      });
+    }
+
+    const favorite = await Favorite.findOne({
+      where: {
+        user_id,
+        videogame_id,
+      },
+    });
+
+    if (!favorite) {
+      return res.status(404).json({
+        success: false,
+        message: "The videogame is not in favorites",
+      });
+    }
+
+    await favorite.destroy();
+
+    return res.json({
+      success: true,
+      message: "Videogame removed from favorites",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = userController;

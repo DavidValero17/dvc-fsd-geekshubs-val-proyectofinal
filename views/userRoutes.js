@@ -14,7 +14,7 @@ router.get('/getvideogamebyid/:id', verifyToken, userController.getVideogameById
 router.post('/addvideogame', verifyToken, isAdmin, userController.addVideogame);
 router.post('/addtofavorite', verifyToken, isUser, userController.addFavorite);
 router.put('/updatevideogame/', verifyToken, isAdmin, userController.updateVideogame);
-
+router.delete('/deletefavorite', verifyToken, isUser, userController.deleteFavorite);
 
 
 
